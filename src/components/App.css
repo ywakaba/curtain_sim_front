@@ -1,0 +1,76 @@
+.App {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  flex: 1;
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 48px;
+  margin-right: 8px;
+}
+
+.App-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #222;
+  height: 64px;
+  padding: 0 24px 0 24px;
+  color: white;
+}
+
+h1.App-title {
+  display: inline;
+  font-size: 1.5em;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+main {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-self: stretch;
+}
+
+.page {
+  display: flex;
+  flex: 1;
+}
+
+main .side-menu {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  background-color: #0FF;
+}
+
+main .side-menu .menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 8px 8px 8px;
+  height: 64px;
+  background-color: #F0F;
+}
+
+main .side-menu .menu-item .nav-link {
+  display: block;
+  padding: 8px;
+  text-decoration: none;
+  color: white;
+}
+
+main article {
+  display: flex;
+  flex: 1;
+  background-color: #FF0;
+  align-items: center;
+  justify-content: center;
+}
