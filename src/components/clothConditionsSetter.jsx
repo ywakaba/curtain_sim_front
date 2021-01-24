@@ -3,6 +3,7 @@ import { Layout, Row, Col, Slider } from "antd";
 import { CustomCheckBoxes } from './customCheckBoxes';
 import { CustomSelectBox } from './customSelectBox';
 import { ColorSelector } from './colorSelector';
+import ColorPickerWheel from './ColorPickerWheel';
 import { ImageList } from './imageList';
 
 export const ClothConditionsSetter = (props) => {
@@ -18,6 +19,7 @@ export const ClothConditionsSetter = (props) => {
 
   const [selectedCurtain, setCurtain] = useState(null);
   const [selectedLace, setLace] = useState(null);
+  const [colorFrom, setColorFrom] = useState('palette');
 
   const handleChange = e => {
     const newVal = Object.assign({}, val, {
@@ -25,6 +27,20 @@ export const ClothConditionsSetter = (props) => {
     });
     setVal(newVal);
   };
+
+  const onClickFromPalette = () => {
+    alert('onClickFromPalette');
+    setColorFrom('palette');
+  };
+
+  const onClickFromPhoto = () => {
+    alert('onClickFromPhoto');
+    setColorFrom('photo');
+  };
+
+  const [colorWheelState, setWheelState] = useState({});
+  const [colorWheelHoverState, setWheelHoverState] = useState({});
+  const [colorImageHoverState, setImageHoverState] = useState({});
 
   const prices = [
       { value: "all_prices", label: "すべての価格" },
@@ -52,9 +68,50 @@ export const ClothConditionsSetter = (props) => {
     return (
       <>
         {clothType === 'drape' &&
-        (<div id="color-selector" className="d-flex flex-row">
+        (<div id="color-selector" className="d-flex flex-row" style={{margin: '20px 0'}}>
           <div style={{width: '30%'}}>カラー</div>
-          <ColorSelector/>
+          {/* <ColorSelector/> */}
+          <div id='color_conds' className="d-flex flex-column div_margined">
+            <div className="d-flex flex-row center">
+              <button id='btnFromPalette' className="btn btn-secondary" onClick={onClickFromPalette}>パレットから色を取り込む</button>
+              <button id='btnFromPhoto' className="btn btn-secondary" onClick={onClickFromPhoto}>写真から色を取り込む</button>
+            </div>
+            <ColorSelector  colorFrom={colorFrom} />
+            {/* <ColorPickerWheel
+              onGetColor={(color) => {
+                setWheelHoverState(color);
+              }}
+              onSetColor={(color) => {
+                setWheelState(color);
+              }}
+            /> */}
+            {/* <div id='rgb_disp' className="d-flex flex-row">
+              <div style={{width: '60%'}}>
+                Color: R:{colorWheelHoverState.r} B:{colorWheelHoverState.b} G:{colorWheelHoverState.g}
+              </div>
+              <div
+                style={{
+                  height: 40,
+                  width: 120,
+                  border: "1px solid black",
+                  backgroundColor: colorWheelHoverState.hex,
+                }}
+              />
+            </div> */}
+            {/* <div id='rgb_disp2' className="d-flex flex-row">
+              <div style={{width: '60%'}}>
+                Color: R:{colorWheelState.r} B:{colorWheelState.b} G:{colorWheelState.g}
+              </div>
+              <div
+                style={{
+                  height: 40,
+                  width: 120,
+                  border: "1px solid black",
+                  backgroundColor: colorWheelState.hex,
+                }}
+              />
+            </div> */}
+          </div>
         </div>)}
         <div className="d-flex flex-row" style={{margin: '20px 0'}}>
           <div style={{width: '30%'}}>機能</div>

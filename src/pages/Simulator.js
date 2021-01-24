@@ -94,166 +94,142 @@ function Simulator() {
 
   const [stage, setStage] = useState('setConditions');
 
-  useEffect(() => {
-    resetCanvas();
-  }, [baseImage]);
+  // useEffect(() => {
+  //   resetCanvas();
+  // }, [baseImage]);
 
-  useEffect(() => {
-    if (baseImage)
-      drawCanvas(
-        dragState.lastPosition.x,
-        dragState.lastPosition.y,
-        state.zoom
-      );
-  }, [state.zoom, baseImage]);
+  // useEffect(() => {
+  //   if (baseImage)
+  //     drawCanvas(
+  //       dragState.lastPosition.x,
+  //       dragState.lastPosition.y,
+  //       state.zoom
+  //     );
+  // }, [state.zoom, baseImage]);
 
-  const resetCanvas = () => {
-    lastPosition = { x: 0, y: 0 };
-    setDrag({ ...dragState, lastPosition: { x: 0, y: 0 } });
-    setState({ ...state, zoom: 1 });
-    drawCanvas(0, 0, 1);
-  };
+  // const resetCanvas = () => {
+  //   lastPosition = { x: 0, y: 0 };
+  //   setDrag({ ...dragState, lastPosition: { x: 0, y: 0 } });
+  //   setState({ ...state, zoom: 1 });
+  //   drawCanvas(0, 0, 1);
+  // };
 
-  const drawCanvas = (x, y, zoom) => {
-    let canvas = canvasRef.current;
-    let context = canvas.getContext("2d");
-    // let rect = canvas.getBoundingClientRect();
-    let Img = new Image();
-    Img.src = baseImage;
-    Img.onload = () => {
-      // Draw canvas when image loaded
+  // const drawCanvas = (x, y, zoom) => {
+  //   let canvas = canvasRef.current;
+  //   let context = canvas.getContext("2d");
+  //   // let rect = canvas.getBoundingClientRect();
+  //   let Img = new Image();
+  //   Img.src = baseImage;
+  //   Img.onload = () => {
+  //     context.clearRect(0, 0, canvas.width, canvas.height);
 
-      // let width, height;
-      // let ratio = Img.width / Img.height;
+  //     context.drawImage(
+  //       Img,
+  //       x,
+  //       y,
+  //       // width,
+  //       // height,
+  //       // 0,
+  //       // 0,
+  //       canvas.width * zoom,
+  //       canvas.height * zoom
+  //     );
+  //     lastPosition = { x: x, y: y };
+  //   };
+  // };
 
-      // width = Img.width;
-      // height = Img.height;
+  // const startDrag = (e) => {
+  //   let canvas = canvasRef.current;
+  //   let rect = canvas.getBoundingClientRect();
 
-      // keep the aspect ratio
-      // if (width <= height) {
-      //   height = height * ratio;
-      //   console.log(canvas.width - width);
-      // } else {
-      //   width = width * ratio;
-      // }
-      context.clearRect(0, 0, canvas.width, canvas.height);
-      // if (x <= 0) {
-      //   x = maxLeft;
-      // } else if (x >= maxRight) {
-      //   x = maxRight;
-      // }
-      // if (y >= maxTop) {
-      //   y = maxTop;
-      // } else if (y <= maxBottom) {
-      //   y = maxBottom;
-      // }
-      context.drawImage(
-        Img,
-        x,
-        y,
-        // width,
-        // height,
-        // 0,
-        // 0,
-        canvas.width * zoom,
-        canvas.height * zoom
-      );
-      lastPosition = { x: x, y: y };
-    };
-  };
+  //   let clientX, clientY;
+  //   if (e.touches) {
+  //     clientX = e.touches[0].clientX;
+  //     clientY = e.touches[0].clientY;
+  //   } else {
+  //     clientX = e.clientX;
+  //     clientY = e.clientY;
+  //   }
+  //   let x = clientX - rect.left;
+  //   let y = clientY - rect.top;
 
-  const startDrag = (e) => {
-    let canvas = canvasRef.current;
-    let rect = canvas.getBoundingClientRect();
+  //   setDrag({
+  //     ...dragState,
+  //     dragged: true,
+  //     startPosition: { x: x, y: y },
+  //   });
+  //   return false;
+  // };
 
-    let clientX, clientY;
-    if (e.touches) {
-      clientX = e.touches[0].clientX;
-      clientY = e.touches[0].clientY;
-    } else {
-      clientX = e.clientX;
-      clientY = e.clientY;
-    }
-    let x = clientX - rect.left;
-    let y = clientY - rect.top;
+  // const dragImage = (e) => {
+  //   if (dragState.dragged) {
+  //     let canvas = canvasRef.current;
+  //     let rect = canvas.getBoundingClientRect();
 
-    setDrag({
-      ...dragState,
-      dragged: true,
-      startPosition: { x: x, y: y },
-    });
-    return false;
-  };
+  //     let clientX, clientY;
+  //     if (e.touches) {
+  //       clientX = e.touches[0].clientX;
+  //       clientY = e.touches[0].clientY;
+  //     } else {
+  //       clientX = e.clientX;
+  //       clientY = e.clientY;
+  //     }
 
-  const dragImage = (e) => {
-    if (dragState.dragged) {
-      let canvas = canvasRef.current;
-      let rect = canvas.getBoundingClientRect();
+  //     let x = clientX - rect.left;
+  //     let y = clientY - rect.top;
+  //     x = dragState.lastPosition.x + x - dragState.startPosition.x;
+  //     y = dragState.lastPosition.y + y - dragState.startPosition.y;
+  //     drawCanvas(x, y, state.zoom);
+  //   }
+  //   return false;
+  // };
 
-      let clientX, clientY;
-      if (e.touches) {
-        clientX = e.touches[0].clientX;
-        clientY = e.touches[0].clientY;
-      } else {
-        clientX = e.clientX;
-        clientY = e.clientY;
-      }
+  // const endDrag = (e) => {
+  //   setDrag({
+  //     ...dragState,
+  //     lastPosition: lastPosition,
+  //     dragged: false,
+  //   });
+  //   return false;
+  // };
 
-      let x = clientX - rect.left;
-      let y = clientY - rect.top;
-      x = dragState.lastPosition.x + x - dragState.startPosition.x;
-      y = dragState.lastPosition.y + y - dragState.startPosition.y;
-      drawCanvas(x, y, state.zoom);
-    }
-    return false;
-  };
+  // const getColor = (e) => {
+  //   let canvas = canvasRef.current;
+  //   let context = canvas.getContext("2d");
+  //   let rect = canvas.getBoundingClientRect();
+  //   let clientX, clientY;
+  //   if (e.touches) {
+  //     clientX = e.touches[0].clientX;
+  //     clientY = e.touches[0].clientY;
+  //   } else {
+  //     clientX = e.clientX;
+  //     clientY = e.clientY;
+  //   }
+  //   let x = clientX - rect.left;
+  //   let y = clientY - rect.top;
+  //   x = x * (canvas.width / rect.width);
+  //   y = y * (canvas.height / rect.height);
+  //   let color = context.getImageData(x, y, 1, 1).data;
+  //   setState({
+  //     ...state,
+  //     color: {
+  //       r: color[0],
+  //       g: color[1],
+  //       b: color[2],
+  //       a: color[3],
+  //       hex: rgbToHex(color[0], color[1], color[2]),
+  //     },
+  //   });
+  //   return false;
+  // };
 
-  const endDrag = (e) => {
-    setDrag({
-      ...dragState,
-      lastPosition: lastPosition,
-      dragged: false,
-    });
-    return false;
-  };
-
-  const getColor = (e) => {
-    let canvas = canvasRef.current;
-    let context = canvas.getContext("2d");
-    let rect = canvas.getBoundingClientRect();
-    let clientX, clientY;
-    if (e.touches) {
-      clientX = e.touches[0].clientX;
-      clientY = e.touches[0].clientY;
-    } else {
-      clientX = e.clientX;
-      clientY = e.clientY;
-    }
-    let x = clientX - rect.left;
-    let y = clientY - rect.top;
-    x = x * (canvas.width / rect.width);
-    y = y * (canvas.height / rect.height);
-    let color = context.getImageData(x, y, 1, 1).data;
-    setState({
-      ...state,
-      color: {
-        r: color[0],
-        g: color[1],
-        b: color[2],
-        a: color[3],
-        hex: rgbToHex(color[0], color[1], color[2]),
-      },
-    });
-    return false;
-  };
-
-  function componentToHex(c) {
-    var hex = c.toString(16);
-    return hex.length === 1 ? "0" + hex : hex;
-  }
-  function rgbToHex(r, g, b) {
-    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
-  }
+  // function componentToHex(c) {
+  //   var hex = c.toString(16);
+  //   return hex.length === 1 ? "0" + hex : hex;
+  // }
+  // function rgbToHex(r, g, b) {
+  //   return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+  // }
 
   const onClickLace = () => {
     setClothType('lace');
@@ -274,7 +250,7 @@ function Simulator() {
   return (
     <div style={style}>
       <Layout className="container">
-        <Layout.Content>
+        {/* <Layout.Content>
           <Col span={24} style={{ padding: "0 12px" }}>
             <Row>
               <Col span={24} style={{ display: baseImage ? "block" : "none" }}>
@@ -454,106 +430,14 @@ function Simulator() {
                 />
               </Col>
             </Row>
-
-            {/* <Row justify="center">
-              <Col xs={12} md={18} lg={18}>
-                <Slider
-                  defaultValue={state.zoom}
-                  min={1}
-                  max={5}
-                  step={0.1}
-                  onChange={(zoom) => {
-                    setState({ ...state, zoom: zoom });
-                  }}
-                />
-              </Col>
-
-              <Row justify="center">
-                <Col span={8}>
-                  <Button
-                    icon={<UpOutlined />}
-                    onMouseDown={() => {
-                      console.log(state.crop.y++);
-                      setState({
-                        ...state,
-                        crop: { ...state.crop, y: state.crop.y++ },
-                      });
-                    }}
-                  />
-                </Col>
-              </Row>
-              <Row justify="center">
-                <Col span={8}>
-                  <Button
-                    onMouseDown={() => {
-                      console.log(state.crop.x--);
-                      setState({
-                        ...state,
-                        crop: { ...state.crop, x: state.crop.x-- },
-                      });
-                    }}
-                    icon={<LeftOutlined />}
-                  />
-                </Col>
-                <Col span={8}></Col>
-                <Col span={8}>
-                  <Button
-                    onMouseDown={() => {
-                      console.log(state.crop.x++);
-                      setState({
-                        ...state,
-                        crop: { ...state.crop, x: state.crop.x++ },
-                      });
-                    }}
-                    icon={<RightOutlined />}
-                  />
-                </Col>
-              </Row>
-              <Row justify="center">
-                <Col span={8}>
-                  <Button
-                    onMouseDown={() => {
-                      console.log(state.crop.y--);
-                      setState({
-                        ...state,
-                        crop: { ...state.crop, y: state.crop.y-- },
-                      });
-                    }}
-                    icon={<DownOutlined />}
-                  />
-                </Col>
-              </Row>
-            </Row> */}
-            {/* {baseImage && (
-              <Row gutter={[16, 16]}>
-                <Col span={24}>
-                  <ImageList
-                    images={laces}
-                    setSelected={setLace}
-                    selectedImage={selectedLace}
-                  />
-                </Col>
-              </Row>
-            )}
-            {baseImage && (
-              <Row gutter={[16, 16]}>
-                <Col span={24}>
-                  <ImageList
-                    images={curtains}
-                    setSelected={setCurtain}
-                    selectedImage={selectedCurtain}
-                  />
-                </Col>
-              </Row>
-            )} */}
           </Col>
-        </Layout.Content>
+        </Layout.Content> */}
         <div className='center'><div className='arrow_box center' style={{margin: '20px 0'}}>条件設定を選択してください</div></div>
         <div className="d-flex flex-row center">
           <button id='btnLace' className="btn btn-success" onClick={onClickLace}>①レースカーテン生地</button>
           <button id='btnDrape' className="btn btn-success" onClick={onClickDrape}>②ドレープカーテン生地</button>
         </div>
-        <ClothConditionsSetter clothType={clothType} />
+        <ClothConditionsSetter clothType={clothType} style={{margin: '20px 0'}}/>
         <div className="d-flex flex-row" style={{margin: '20px auto'}}>
           <button id="btnBack" className="btn btn-secondary btn-lg"  onClick={onClickBack}>＜　戻る</button>
           <button id="btnDeside" className="btn btn-danger btn-lg" onClick={onClickDeside}>決定　＞</button>

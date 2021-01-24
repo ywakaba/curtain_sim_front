@@ -92,3 +92,7 @@ div.center {
   top: 100%;
   left: 50%;
 }
+.div_margined > *:not(:last-child) {
+  display: block;
+  margin-bottom: 30px;
+}
