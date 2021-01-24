@@ -2,13 +2,6 @@ import React, { useState } from "react";
 import ColorPickerWheel from './ColorPickerWheel';
 import ColorPickerImage from './ColorPickerImage';
 
-// export const ColorSelector = () => {
-//   return (
-//     <>
-//     {/* {/* <label>色を選択</label>
-//       <input type="color" name="favorite_color" list/>*/ */}    </>
-//    );
-// };
 export const ColorSelector = (props) => {
 
   const { colorFrom } = props;
