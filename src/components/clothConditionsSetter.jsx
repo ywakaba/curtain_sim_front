@@ -6,11 +6,14 @@ import { ColorSelector } from './colorSelector';
 import { ImageList } from './imageList';
 
 export const ClothConditionsSetter = (props) => {
-  const { clothType } = props;
+  const { clothType, functionsData } = props;
 
-  const funcOptions = [{id: 'disaster', name: '防災'}, {id: 'thermal_barrier', name: '遮熱'}, {id: 'antifouling', name: '防汚'},
-                       {id: 'uv_cutting', name: 'UVカット'}, {id: 'washable', name: 'ウオッシャブル'}, {id: 'mirror', name: 'ミラー'},
-                       {id: 'pollen', name: '花粉キャッチ'}, {id: 'outside_viewable', name: '外が見える'}];
+  // const funcOptions = [{id: 'disaster', name: '防災'}, {id: 'thermal_barrier', name: '遮熱'}, {id: 'antifouling', name: '防汚'},
+  //                      {id: 'uv_cutting', name: 'UVカット'}, {id: 'washable', name: 'ウオッシャブル'}, {id: 'mirror', name: 'ミラー'},
+  //                      {id: 'pollen', name: '花粉キャッチ'}, {id: 'outside_viewable', name: '外が見える'}];
+  let funcOptions = [];
+  functionsData.forEach((func, index) =>
+    funcOptions.push({id: func.name, name: func.disp_name}));
 
   const initialVal = { disaster: false, thermal_barrier: false, antifouling: false, uv_cutting: false,
                        washable: false, mirror: false, pollen: false, outside_viewable: false };

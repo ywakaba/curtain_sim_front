@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import axios from 'axios';
 //import ReactDOM from 'react-dom';
 import { Layout, Row, Col, Slider } from "antd";
 import "antd/dist/antd.css";
@@ -32,6 +33,8 @@ function Simulator() {
 
   const [stage, setStage] = useState('setConditions');
 
+  const [functionsData, setFunctionsData] = useState({ hits: [] });
+  
   const onClickLace = () => {
     setClothType('lace');
   };
@@ -48,6 +51,18 @@ function Simulator() {
     alert('決定');
   };
 
+  useEffect(async () => {
+    // axios.get("/functions").then(response => {
+    //   alert('axios.get');
+    //   alert(response.data);
+    //   setFunctionsData({ functions: response.data });
+    // });
+    const result = await axios.get("/functions");
+    console.log(result);
+    // alert('await axios.get');
+    setFunctionsData(result.data);
+  }, []); 
+  
   return (
     <div style={style}>
       <Layout className="container">
@@ -56,7 +71,8 @@ function Simulator() {
           <button id='btnLace' className="btn btn-success" onClick={onClickLace}>①レースカーテン生地</button>
           <button id='btnDrape' className="btn btn-success" onClick={onClickDrape}>②ドレープカーテン生地</button>
         </div>
-        <ClothConditionsSetter clothType={clothType} style={{margin: '20px 0'}}/>
+        {functionsData.length &&
+        (<ClothConditionsSetter clothType={clothType} functionsData={functionsData} style={{margin: '20px 0'}}/>)}
         <div className="d-flex flex-row" style={{margin: '20px auto'}}>
           <button id="btnBack" className="btn btn-secondary btn-lg"  onClick={onClickBack}>＜　戻る</button>
           <button id="btnDeside" className="btn btn-danger btn-lg" onClick={onClickDeside}>決定　＞</button>
