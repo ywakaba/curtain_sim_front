@@ -35,6 +35,8 @@ function Simulator() {
 
   const [functionsData, setFunctionsData] = useState({ hits: [] });
   
+  const [pricesData, setPricesData] = useState({ hits: [] });
+
   const onClickLace = () => {
     setClothType('lace');
   };
@@ -57,10 +59,21 @@ function Simulator() {
     //   alert(response.data);
     //   setFunctionsData({ functions: response.data });
     // });
-    const result = await axios.get("/functions");
+    const result = await axios.get("/functions", {
+      params: {
+        //  clothType: 'lace'
+         clothType: clothType
+      }      
+    });
     console.log(result);
     // alert('await axios.get');
     setFunctionsData(result.data);
+  }, [clothType]); 
+  
+  useEffect(async () => {
+    const result = await axios.get("/prices");
+    console.log(result);
+    setPricesData(result.data);
   }, []); 
   
   return (
@@ -71,8 +84,8 @@ function Simulator() {
           <button id='btnLace' className="btn btn-success" onClick={onClickLace}>①レースカーテン生地</button>
           <button id='btnDrape' className="btn btn-success" onClick={onClickDrape}>②ドレープカーテン生地</button>
         </div>
-        {functionsData.length &&
-        (<ClothConditionsSetter clothType={clothType} functionsData={functionsData} style={{margin: '20px 0'}}/>)}
+        {functionsData.length && pricesData.length &&
+        (<ClothConditionsSetter clothType={clothType} functionsData={functionsData} pricesData={pricesData} style={{margin: '20px 0'}}/>)}
         <div className="d-flex flex-row" style={{margin: '20px auto'}}>
           <button id="btnBack" className="btn btn-secondary btn-lg"  onClick={onClickBack}>＜　戻る</button>
           <button id="btnDeside" className="btn btn-danger btn-lg" onClick={onClickDeside}>決定　＞</button>

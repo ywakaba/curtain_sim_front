@@ -6,14 +6,17 @@ import { ColorSelector } from './colorSelector';
 import { ImageList } from './imageList';
 
 export const ClothConditionsSetter = (props) => {
-  const { clothType, functionsData } = props;
+  const { clothType, functionsData, pricesData } = props;
 
   // const funcOptions = [{id: 'disaster', name: '防災'}, {id: 'thermal_barrier', name: '遮熱'}, {id: 'antifouling', name: '防汚'},
   //                      {id: 'uv_cutting', name: 'UVカット'}, {id: 'washable', name: 'ウオッシャブル'}, {id: 'mirror', name: 'ミラー'},
   //                      {id: 'pollen', name: '花粉キャッチ'}, {id: 'outside_viewable', name: '外が見える'}];
   let funcOptions = [];
+  // let funcOptions = {};
   functionsData.forEach((func, index) =>
     funcOptions.push({id: func.name, name: func.disp_name}));
+  // functionsData.forEach((func, index) =>
+    // funcOptions[func.name] = func.disp_name);
 
   const initialVal = { disaster: false, thermal_barrier: false, antifouling: false, uv_cutting: false,
                        washable: false, mirror: false, pollen: false, outside_viewable: false };
@@ -38,14 +41,17 @@ export const ClothConditionsSetter = (props) => {
     setColorFrom('photo');
   };
 
-  const prices = [
-      { value: "all_prices", label: "すべての価格" },
-      { value: "ge_600000", label: "60,000～" },
-      { value: "lt_600000", label: "～59,999" },
-      { value: "le_400000", label: "～40,000" },
-      { value: "le_200000", label: "～20,000" },
-      { value: "le_100000", label: "～10,000" }
-    ];
+  let prices = [];
+  pricesData.forEach((price, index) =>
+    prices.push({id: price.section, name: price.disp_value}));
+   // const prices = [
+  //     { value: "all_prices", label: "すべての価格" },
+  //     { value: "ge_600000", label: "60,000～" },
+  //     { value: "lt_600000", label: "～59,999" },
+  //     { value: "le_400000", label: "～40,000" },
+  //     { value: "le_200000", label: "～20,000" },
+  //     { value: "le_100000", label: "～10,000" }
+  //   ];
 
     const laces = [
       "/images/lace_curtains/lace_1.png",

@@ -7,7 +7,7 @@ export const CustomSelectBox = (props) => {
     <select>
       {options.map((opt, index) => {
         return (
-          <option value={opt.value}>{opt.label}</option>
+          <option value={opt.id}>{opt.name}</option>
         );
       })}
     </select>
